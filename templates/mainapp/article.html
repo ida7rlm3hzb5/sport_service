@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="main-content">
+            {% if article %}
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        {% if article.image %}
+                            <img src="{{ article.image.url }}" class="img-fluid rounded" alt="{{ article.title }}">
+                        {% else %}
+                            <img src="{% static 'images/default_cover.png' %}" class="img-fluid rounded" alt="{{ article.title }}">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <h1 class="display-4">{{ article.title }}</h1>
+                        <p class="text-muted">
+                            <small>Дата публикации: {{ article.created_at|date:"d.m.Y" }}</small><br>
+                            Автор: <a href="#">{{ article.author.username }}</a>
+                        </p>
+                        <hr>
+                        <p>{{ article.content }}</p>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if request.user.is_authenticated %}
+            <div class="mb-4">
+                <button type="button" class="btn btn-outline-secondary mr-2" data-toggle="modal" data-target="#commentModal">Добавить комментарий</button>
+                <a href="{% url 'edit_article' article.id %}" class="btn btn-outline-secondary mr-2">Редактировать</a>
+                <form method="post" action="{% url 'delete_article' article.id %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Вы уверены, что хотите удалить эту статью?')">Удалить</button>
+                </form>
+            </div>
+            {% endif %}
+
+            <div class="mt-5">
+                <h2>Комментарии</h2>
+                {% for comment in comments %}
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ comment.author.username }}</h5>
+                            <p class="card-text">{{ comment.content }}</p>
+                            <div class="mb-2">
+                                {% for i in "12345" %}
+                                    <span class="fa fa-star{% if i > comment.rating %}-o{% endif %}"></span>
+                                {% endfor %}
+                            </div>
+                            <p class="card-text"><small class="text-muted">Дата комментария: {{ comment.created_at|date:"d.m.Y" }}</small></p>
+                            {% if request.user == comment.author or request.user.is_superuser %}
+                                <form method="post" action="{% url 'comment_delete' comment.pk %}" style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% empty %}
+                    <p>Комментариев пока нет. Будьте первым, кто оставит комментарий!</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="commentModalLabel">Добавить комментарий</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" id="commentForm">
+                        {% csrf_token %}
+                        {{ comment_form.as_p }}
+                        <div class="form-group">
+                            <label for="rating">Оценка:</label>
+                            <div id="star-rating-add" class="mb-2">
+                                {% for i in "12345" %}
+                                    <span class="fa fa-star-o" data-value="{{ i }}"></span>
+                                {% endfor %}
+                            </div>
+                            <input type="hidden" id="id_rating" name="rating" value="0">
+                        </div>
+                        <button type="submit" class="btn-outline-secondary mr-2">Отправить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const stars = document.querySelectorAll('#star-rating-add .fa');
+            stars.forEach(star => {
+                star.addEventListener('click', function () {
+                    const rating = this.getAttribute('data-value');
+                    document.getElementById('id_rating').value = rating;
+                    stars.forEach(s => {
+                        if (s.getAttribute('data-value') <= rating) {
+                            s.classList.remove('fa-star-o');
+                            s.classList.add('fa-star');
+                        } else {
+                            s.classList.remove('fa-star');
+                            s.classList.add('fa-star-o');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+{% endblock %}

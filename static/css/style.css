@@ -1,0 +1,354 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #f4f4f4;
+    color: #333;
+    padding-bottom: 60px;
+}
+
+
+
+header {
+    background-color: #2e7d32;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+header img {
+    height: 50px;
+}
+
+/* Base styles for the navigation */
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar .navbar-brand {
+    color: #ffffff;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar .navbar-nav .nav-item .nav-link {
+    color: #333333;
+    margin: 0 10px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+/* Hover and active states */
+.navbar .navbar-nav .nav-item .nav-link:hover,
+.navbar .navbar-nav .nav-item .nav-link:focus,
+.navbar .navbar-nav .nav-item .nav-link.active {
+    color: #495057;
+    background-color: #e2e6ea;
+    border-radius: 5px;
+}
+
+/* Mobile view styles */
+.navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%2851, 51, 51, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Adjustments for active states */
+.navbar .navbar-nav .nav-item .nav-link.active {
+    font-weight: bold;
+    color: #495057;
+    background-color: #e2e6ea;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .navbar .navbar-nav {
+        text-align: center;
+    }
+
+    .navbar .navbar-nav .nav-item {
+        margin: 10px 0;
+    }
+}
+
+.slider {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.slides {
+    display: flex;
+    width: 300%;
+    height: 100%;
+    animation: slide 15s infinite;
+}
+
+.slide {
+    width: 33.3333%;
+    height: 100%;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0%);
+    }
+    20% {
+        transform: translateX(0%);
+    }
+    25% {
+        transform: translateX(-33.3333%);
+    }
+    45% {
+        transform: translateX(-33.3333%);
+    }
+    50% {
+        transform: translateX(-66.6666%);
+    }
+    70% {
+        transform: translateX(-66.6666%);
+    }
+    75% {
+        transform: translateX(-100%);
+    }
+    95% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.content {
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 8px;
+}
+
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Высота футера */
+    background-color: #6c757d;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* Стили контейнера */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Стили основной части */
+.main-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Стили изображения статьи */
+.main-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Стили заголовка статьи */
+.main-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+/* Стили метаданных статьи */
+.main-content .text-muted {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+/* Стили текста статьи */
+.main-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* Стили кнопки */
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Стили карточек комментариев */
+.card {
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Стили тела карточки */
+.card-body {
+    padding: 20px;
+}
+
+/* Стили заголовка карточки */
+.card-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+/* Стили текста комментария */
+.card-text {
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+/* Стили звездного рейтинга */
+.fa-star, .fa-star-o {
+    color: #ffcc00;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.fa-star:hover, .fa-star-o:hover {
+    color: #ff9900;
+}
+
+/* Стили модального окна */
+.modal-content {
+    background-color: #f8f9fa; /* Цвет фона */
+    color: #343a40; /* Цвет текста */
+    border-radius: 0.3rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    background-color: #6c757d; /* Цвет фона заголовка */
+    color: #fff; /* Цвет текста заголовка */
+    border-bottom: none;
+    padding: 15px 20px;
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+}
+
+.modal-body {
+    padding: 20px;
+    background-color: #f8f9fa; /* Цвет фона */
+}
+
+.modal-footer {
+    border-top: none;
+    padding: 10px 20px;
+    background-color: #f8f9fa; /* Цвет фона */
+}
+
+.form-group label {
+    font-weight: bold;
+    color: #343a40;
+}
+
+#star-rating-add .fa {
+    font-size: 1.5rem;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+#star-rating-add .fa:hover,
+#star-rating-add .fa.fa-star {
+    color: #ffcc00;
+}
+
+#id_rating {
+    display: none;
+}
+
+/* Адаптивные стили */
+@media (max-width: 767px) {
+    .main-content .row {
+        flex-direction: column;
+    }
+
+    .main-content .col-md-4, .main-content .col-md-8 {
+        max-width: 100%;
+        flex: 100%;
+    }
+
+    .main-content img {
+        margin-bottom: 20px;
+    }
+}
+
+.custom-form-width {
+    max-width: 1000px; /* Установите желаемую ширину */
+    margin: auto;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+.card-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.card-subtitle {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.card img {
+    object-fit: cover;
+    height: auto;
+}

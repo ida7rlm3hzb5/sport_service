@@ -1,0 +1,103 @@
+{#{% extends 'base.html' %}#}
+{#{% block content %}#}
+{#<div class="container mt-5">#}
+{#    <h2>Список спортивного инвентаря</h2>#}
+{#    <form method="get" action="{% url 'equipment_list' %}">#}
+{#        {% csrf_token %}#}
+{#        <div class="mb-3">#}
+{#            <label for="category">Выберите категории:</label><br>#}
+{#            {% for category in categories %}#}
+{#                <input type="checkbox" id="{{ category.id }}" name="categories" value="{{ category.id }}">#}
+{#                <label for="{{ category.id }}">{{ category.name }}</label><br>#}
+{#            {% endfor %}#}
+{#        </div>#}
+{#        <button type="submit" class="btn btn-outline-secondary">Отфильтровать</button>#}
+{#    </form>#}
+{#    <form method="get" action="{% url 'confirm_order' %}">#}
+{#        {% csrf_token %}#}
+{#        <table class="table">#}
+{#            <thead>#}
+{#            <tr>#}
+{#                <th>Название</th>#}
+{#                <th>Описание</th>#}
+{#                <th>Цена</th>#}
+{#                <th>Количество доступного инвентаря</th>#}
+{#                <th>Количество для заказа</th>#}
+{#            </tr>#}
+{#            </thead>#}
+{#            <tbody>#}
+{#            {% for equipment in equipment_list %}#}
+{#                <tr>#}
+{#                    <td>{{ equipment.name }}</td>#}
+{#                    <td>{{ equipment.description }}</td>#}
+{#                    <td>{{ equipment.price }}</td>#}
+{#                    <td>{{ equipment.quantity }}</td>#}
+{#                    <td><input type="number" name="equipment_quantity_{{ equipment.id }}" min="0" max="{{ equipment.quantity }}" value="0"></td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#            </tbody>#}
+{#        </table>#}
+{#        {% if user.is_authenticated %}#}
+{#            <button type="submit" class="btn btn-outline-secondary">Забронировать</button>#}
+{#        {% else %}#}
+{#            <a class="btn btn-outline-secondary" href="{% url 'login' %}">Для продолжения необходимо авторизоваться</a>#}
+{#        {% endif %}#}
+{#    </form>#}
+{#</div>#}
+{#{% endblock %}#}
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>Список спортивного инвентаря</h2>
+        <form method="get" action="{% url 'equipment_list' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="category">Выберите категории:</label><br>
+                {% for category in categories %}
+                    <input type="checkbox" id="{{ category.id }}" name="categories" value="{{ category.id }}">
+                    <label for="{{ category.id }}">{{ category.name }}</label><br>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-outline-secondary">Отфильтровать</button>
+        </form>
+
+        <form method="post" action="{% url 'confirm_order' %}">
+            {% csrf_token %}
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Цена</th>
+                    <th>Количество доступного инвентаря</th>
+                    <th>Количество для заказа</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for equipment in equipment_list %}
+                    <tr>
+                        <td>{{ equipment.name }}</td>
+                        <td>{{ equipment.description }}</td>
+                        <td>{{ equipment.price }}</td>
+                        <td>{{ equipment.quantity }}</td>
+                        <td><input type="number" name="equipment_quantity_{{ equipment.id }}" min="0" max="{{ equipment.quantity }}" value="0"></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% if user.is_authenticated %}
+            <div class="mb-3">
+                <label for="order_date">Дата бронирования:</label>
+                <input type="date" class="form-control" id="order_date" name="order_date" required value="{{ current_date  }}">
+            </div>
+            <div class="mb-3">
+                <label for="order_time">Время бронирования:</label>
+                <input type="time" class="form-control" id="order_time" name="order_time" required value="{{ current_time  }}">
+            </div>
+            <button type="submit" class="btn btn-outline-secondary">Забронировать</button>
+            {% else %}
+                <a class="btn btn-outline-secondary" href="{% url 'login' %}">Для продолжения необходимо авторизоваться</a>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

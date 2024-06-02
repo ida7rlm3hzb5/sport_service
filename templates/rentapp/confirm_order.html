@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>Подтверждение заказа</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            {{ order_form.as_p }}
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Цена</th>
+                    <th>Количество</th>
+                    <th>Общая стоимость</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for item in equipment %}
+                    <tr>
+                        <td>{{ item.name }}</td>
+                        <td>{{ item.description }}</td>
+                        <td>{{ item.price }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>{{ item.total_price }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <h3>Общая стоимость: {{ total_cost }}</h3>
+            <button type="submit" class="btn btn-primary">Подтвердить заказ</button>
+        </form>
+    </div>
+{% endblock %}

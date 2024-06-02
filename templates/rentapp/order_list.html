@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5">
+        <h2>Список заказов</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Имя пользователя</th>
+                <th>Почта</th>
+                <th>Заказанные товары</th>
+                <th>Стоимость</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.order_date }}</td>
+                    <td>{{ order.user.username }}</td>
+                    <td>{{ order.user.email }}</td>
+                    <td>
+                        <ul>
+                            {% for item in order.ordered_equipment.all %}
+                                <li>{{ item.equipment.name }}: {{ item.quantity }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ order.total_price }}</td>
+                    <td>{{ order.get_status_display }}</td>
+                    <td>
+                        {% if order.status == 'CREATED' %}
+                            <form method="post" action="{% url 'issue_order' order.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-secondary">Выдать</button>
+                            </form>
+                        {% elif order.status == 'RENTED' %}
+                            <form method="post" action="{% url 'accept_order' order.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-secondary">Принять</button>
+                            </form>
+                        {% endif %}
+                        <form method="post" action="{% url 'delete_order' order.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% if old_orders %}
+        <div class="container mt-5">
+            <h2>Список заказов</h2>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Имя пользователя</th>
+                    <th>Почта</th>
+                    <th>Заказанные товары</th>
+                    <th>Стоимость</th>
+                    <th>Статус</th>
+                    <th>Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in old_orders %}
+                    <tr>
+                        <td>{{ order.order_date }}</td>
+                        <td>{{ order.user.username }}</td>
+                        <td>{{ order.user.email }}</td>
+                        <td>
+                            <ul>
+                                {% for item in order.ordered_equipment.all %}
+                                    <li>{{ item.equipment.name }}: {{ item.quantity }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td>{{ order.total_price }}</td>
+                        <td>{{ order.get_status_display }}</td>
+                        <td>
+                            {% if order.status == 'CREATED' %}
+                                <form method="post" action="{% url 'issue_order' order.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-secondary">Выдать</button>
+                                </form>
+                            {% elif order.status == 'RENTED' %}
+                                <form method="post" action="{% url 'accept_order' order.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-outline-secondary">Принять</button>
+                                </form>
+                            {% endif %}
+                            <form method="post" action="{% url 'delete_order' order.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-outline-danger">Удалить</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+{% endblock %}
