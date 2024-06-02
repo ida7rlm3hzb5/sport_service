@@ -10,9 +10,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-=3%ohyap@iku#$b9bxjzc9jxtoq3_$m*8zzr+ddg^2_gbs0n6p'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sport-service.onrender.com/']
 
 # Application definition
 
@@ -37,7 +37,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    # 'mainapp.middleware.ExceptionHandlingMiddleware'
+    'mainapp.middleware.ExceptionHandlingMiddleware'
 ]
 
 ROOT_URLCONF = 'Sportservice.urls'
@@ -64,11 +64,14 @@ WSGI_APPLICATION = 'Sportservice.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='postgres://sport_service_user:cZufzd7XXF1uUQJ32kWtghiIHmMKBMQr@dpg-cpe8db7sc6pc739bc0a0-a.oregon-postgres.render.com/sport_service',
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 # Password validation
