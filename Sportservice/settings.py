@@ -38,8 +38,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'mainapp.middleware.ExceptionHandlingMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
+# 'mainapp.middleware.ExceptionHandlingMiddleware',
 ]
 
 ROOT_URLCONF = 'Sportservice.urls'
@@ -73,6 +73,10 @@ DATABASES = {
         conn_max_age=600,
         ssl_require=True
     )
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
 }
 
 # Password validation
