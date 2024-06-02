@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-=3%ohyap@iku#$b9bxjzc9jxtoq3_$m*8zzr+ddg^2_gbs0n6p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['sport-service.onrender.com/']
+ALLOWED_HOSTS = ['sport-service.onrender.com']
 
 # Application definition
 
@@ -114,9 +114,9 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = 'static/'
 
-# STATICFILES_DIRS = [
-#     BASE_DIR / STATIC_URL,
-# ]
+STATICFILES_DIRS = [
+    BASE_DIR / STATIC_URL,
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
