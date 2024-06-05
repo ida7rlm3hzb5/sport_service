@@ -78,7 +78,7 @@ class ConfirmOrderView(LoginRequiredMixin, View):
 
 class OrderListView(View):
     def get(self, request):
-        orders = EquipmentOrder.objects.filter(status__in=['CREATED', 'RENTED']).prefetch_related('ordered_equipment__equipment').order_by('-order_date', '-order_time')
+        orders = EquipmentOrder.objects.filter(status__in=['CREATED', 'RENTED', 'OVERDUE']).prefetch_related('ordered_equipment__equipment').order_by('-order_date', '-order_time')
         old_orders = EquipmentOrder.objects.filter(status='RETURNED').order_by('-order_date', '-order_time')
 
         for order in orders:

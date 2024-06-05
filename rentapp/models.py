@@ -45,6 +45,7 @@ class EquipmentOrder(models.Model):
         ('CREATED', 'Создан'),
         ('RENTED', 'Арендован'),
         ('RETURNED', 'Возвращено'),
+        ('OVERDUE', 'Просрочено'),
     )
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     order_date = models.DateField()

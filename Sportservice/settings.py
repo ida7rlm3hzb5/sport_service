@@ -27,7 +27,9 @@ INSTALLED_APPS = [
 
     'mainapp',
     'authapp',
-    'rentapp'
+    'rentapp',
+
+    'django_cron'
 ]
 
 MIDDLEWARE = [
@@ -39,7 +41,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
-# 'mainapp.middleware.ExceptionHandlingMiddleware',
+    'mainapp.middleware.ExceptionHandlingMiddleware',
+]
+
+CRON_CLASSES = [
+    'rentapp.crons.MarkOverdueOrdersCronJob',
 ]
 
 ROOT_URLCONF = 'Sportservice.urls'
@@ -112,7 +118,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = 'static/'
+# STATIC_ROOT = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / STATIC_URL,

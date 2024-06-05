@@ -35,7 +35,7 @@
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-outline-secondary">Выдать</button>
                             </form>
-                        {% elif order.status == 'RENTED' %}
+                        {% elif not order.status == 'CREATED' %}
                             <form method="post" action="{% url 'accept_order' order.id %}">
                                 {% csrf_token %}
                                 <button type="submit" class="btn btn-outline-secondary">Принять</button>
